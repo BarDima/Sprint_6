@@ -5,6 +5,7 @@ import pytest
 from locators.home_page_locators import HomePageLocators
 from pages.home_page import HomePage
 
+
 class TestHomePage:
 
     @pytest.mark.parametrize("locator, text_locator, expected_text", [

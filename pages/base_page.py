@@ -10,7 +10,7 @@ class BasePage:
         element.click()
 
     def click_element_script(self, locator):
-        element = self.find_element(locator)
+        element = self.find_element(*locator)
         self.driver.execute_script("arguments[0].click();", element)
 
     def find_element(self, *locator):
