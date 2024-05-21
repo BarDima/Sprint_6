@@ -18,4 +18,10 @@ class HomePageLocators:
     drop_down_list_cancel_text = (By.ID, 'accordion__panel-6')#текст выпадающего списка "Можно ли отменить заказ?"
     drop_down_list_live_outside = (By.ID, 'accordion__heading-7')#выпадающий список "Я жизу за МКАДом, привезёте?"
     drop_down_list_live_outside_text = (By.ID, 'accordion__panel-7')#текст выпадающего списка "Я жизу за МКАДом, привезёте?"
+    top_button_order = (By.XPATH, "*//button[@class='Button_Button__ra12g']")  # верхняя кнопка "Заказать"
+    bottom_button_order = (
+    By.XPATH, "*//button[contains(@class, 'Button_Middle') and text()='Заказать']")  # нижняя кнопка "Заказать"
+    logo_yandex = (By.XPATH, "*//a[contains(@class, 'Header_LogoYandex')]")  # логотип Яндекс
+    logo_scooter = (By.XPATH, "*//a[contains(@class, 'Header_LogoScooter')]")  # логотип самокат
+    cookie_button = (By.ID, 'rcc-confirm-button')  # кнопка куки
 

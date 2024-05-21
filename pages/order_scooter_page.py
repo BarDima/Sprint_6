@@ -1,61 +1,65 @@
+from pages.base_page import BasePage
 from locators.order_scooter_locators import OrderScooterLocators
-from locators.base_page_locators import BasePageLocators
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
-import pytest
+from locators.home_page_locators import HomePageLocators
+from selenium.common.exceptions import TimeoutException
 
-class OrderScooterPage:
+class OrderPage(BasePage):
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
 
-    def click(self, locator):
-        WebDriverWait(self.driver, 10).until(expected_conditions.element_to_be_clickable(locator)).click()
+    def click_top_order_button(self):
+        self.click_element(HomePageLocators.top_button_order)
 
-    def find_element(self, locator):
-        return WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located(locator))
+    def click_bottom_order_button(self):
+        self.click_element(HomePageLocators.bottom_button_order)
 
-    def send_keys(self, locator, text):
-        self.find_element(locator).send_keys(text)
+    def accept_cookies(self):
+        self.click_element(HomePageLocators.cookie_button)
 
-    def open_order_form(self, entry_point):
-        if entry_point == 'top_button':
-            self.click(BasePageLocators.top_button_order)
-        elif entry_point == 'bottom_button':
-            element = self.find_element(BasePageLocators.bottom_button_order)
-            self.driver.execute_script("arguments[0].click();", element)
-        self.click(BasePageLocators.cookie_button)
+    def enter_name(self, name):
+        self.enter_text_to_field(OrderScooterLocators.name_field, name)
 
-    def fill_personal_info(self, name, last_name, address, phone, metro_locator):
-        self.send_keys(OrderScooterLocators.name_field, name)
-        self.send_keys(OrderScooterLocators.last_name_field, last_name)
-        self.send_keys(OrderScooterLocators.address_field, address)
-        self.click(OrderScooterLocators.metro_field)
-        self.click(metro_locator)
-        self.send_keys(OrderScooterLocators.phone_field, phone)
-        self.click(OrderScooterLocators.next_button)
+    def enter_last_name(self, last_name):
+        self.enter_text_to_field(OrderScooterLocators.last_name_field, last_name)
 
-    def fill_rental_info(self, date_locator, rental_period_locator, color_locator, comment):
-        self.click(OrderScooterLocators.date_field)
-        self.click(date_locator)
-        self.click(OrderScooterLocators.rental_period_field)
-        self.click(rental_period_locator)
-        self.click(color_locator)
-        self.send_keys(OrderScooterLocators.comment_field, comment)
-        self.click(BasePageLocators.bottom_button_order)
+    def enter_address(self, address):
+        self.enter_text_to_field(OrderScooterLocators.address_field, address)
+
+    def select_metro_station(self, metro_locator):
+        self.click_element(OrderScooterLocators.metro_field)
+        self.click_element(metro_locator)
+
+    def enter_phone(self, phone):
+        self.enter_text_to_field(OrderScooterLocators.phone_field, phone)
+
+    def click_next_button(self):
+        self.click_element(OrderScooterLocators.next_button)
+
+    def select_date(self, date_locator):
+        self.click_element(OrderScooterLocators.date_field)
+        self.click_element(date_locator)
+
+    def select_rental_period(self, rental_period_locator):
+        self.click_element(OrderScooterLocators.rental_period_field)
+        self.click_element(rental_period_locator)
+
+    def choose_scooter_color(self, color_locator):
+        self.click_element(color_locator)
+
+    def enter_comment(self, comment):
+        self.enter_text_to_field(OrderScooterLocators.comment_field, comment)
+
+    def click_submit_order_button(self):
+        self.click_element(HomePageLocators.bottom_button_order)
 
     def confirm_order(self):
-        self.click(OrderScooterLocators.yes_button)
-        return self.find_element(OrderScooterLocators.order_processed).is_displayed()
+        self.click_element(OrderScooterLocators.yes_button)
+
+    def is_order_processed(self):
+        try:
+            self.wait_for_element(OrderScooterLocators.order_processed)
+            return True
+        except TimeoutException:
+            return False
 
 
-
-@pytest.mark.parametrize("entry_point, name, last_name, address, phone, metro_locator, date_locator, rental_period_locator, color_locator, comment", [
-    ('top_button', 'Алексей', 'Сидоров', 'улица Набережная, дом 25, квартира 7', '78901234567', OrderScooterLocators.metro_station_rokosovskogo, OrderScooterLocators.date_choice_1, OrderScooterLocators.rental_period_1, OrderScooterLocators.scooter_color_black, 'Привет, жду!'),
-    ('bottom_button', 'Иван', 'Петров', 'улица Строителей, дом 7, квартира 25', '75901234564', OrderScooterLocators.metro_station_cherkizovskya, OrderScooterLocators.date_choice_2, OrderScooterLocators.rental_period_2, OrderScooterLocators.scooter_color_grey, 'Код от подъезда 1111')
-])
-def test_order_scooter(driver, entry_point, name, last_name, address, phone, metro_locator, date_locator, rental_period_locator, color_locator, comment):
-    order_page = OrderScooterPage(driver)
-    order_page.open_order_form(entry_point)
-    order_page.fill_personal_info(name, last_name, address, phone, metro_locator)
-    order_page.fill_rental_info(date_locator, rental_period_locator, color_locator, comment)
-    assert order_page.confirm_order()
