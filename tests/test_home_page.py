@@ -1,5 +1,5 @@
 from config import URL_DZEN, URL
-from config import (text_list_price, text_several_scooter, text_rental_time, text_order_for_today, text_extension_return,
+from data import (text_list_price, text_several_scooter, text_rental_time, text_order_for_today, text_extension_return,
     text_charger, text_cancel, text_live_outside)
 import pytest
 from locators.home_page_locators import HomePageLocators
