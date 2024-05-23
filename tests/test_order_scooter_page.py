@@ -2,11 +2,13 @@ from locators.order_scooter_locators import OrderScooterLocators
 from pages.order_scooter_page import OrderPage
 from data import (name_top_button, last_name_top_button, address_top_button, phone_top_button, comment_top_button,
                   name_bottom_button, last_name_bottom_button, address_bottom_button, phone_bottom_button, comment_bottom_button)
+from pages.home_page import HomePage
 class TestOrderPage:
     def test_order_scooter_top_button(self, driver):
         order_page = OrderPage(driver)
-        order_page.click_top_order_button()
-        order_page.accept_cookies()
+        home_page = HomePage(driver)
+        home_page.accept_cookies()
+        home_page.click_top_button_order()
         order_page.enter_name(name_top_button)
         order_page.enter_last_name(last_name_top_button)
         order_page.enter_address(address_top_button)
@@ -23,8 +25,9 @@ class TestOrderPage:
 
     def test_order_scooter_bottom_button(self, driver):
         order_page = OrderPage(driver)
-        order_page.click_top_order_button()
-        order_page.accept_cookies()
+        home_page = HomePage(driver)
+        home_page.accept_cookies()
+        home_page.click_top_button_order()
         order_page.enter_name(name_bottom_button)
         order_page.enter_last_name(last_name_bottom_button)
         order_page.enter_address(address_bottom_button)

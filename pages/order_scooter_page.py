@@ -9,17 +9,7 @@ class OrderPage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    @allure.step('Нажимаем кнпку Заказать в верхней части страницы')
-    def click_top_order_button(self):
-        self.click_element(HomePageLocators.top_button_order)
 
-    @allure.step('Нажимаем кнпку Заказать в нижней части страницы')
-    def click_bottom_order_button(self):
-        self.click_element(HomePageLocators.bottom_button_order)
-
-    @allure.step('Нажимаем кнопку принятия куки')
-    def accept_cookies(self):
-        self.click_element(HomePageLocators.cookie_button)
 
     @allure.step('Вводим данные в поле Имя')
     def enter_name(self, name):

@@ -7,6 +7,10 @@ class HomePage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
+    @allure.step('Нажимаем кнопку принятия куки')
+    def accept_cookies(self):
+        self.click_element(HomePageLocators.cookie_button)
+
     @allure.step('Проверка соответствия текста')
     def click_drop_down(self, locator, text_locator, expected_text):
         self.click_element_script(locator)
@@ -15,6 +19,10 @@ class HomePage(BasePage):
     @allure.step('Клик на верхнюю кнопку Заказать')
     def click_top_button_order(self):
         self.click_element_script(HomePageLocators.top_button_order)
+
+    @allure.step('Нажимаем кнпку Заказать в нижней части страницы')
+    def click_bottom_order_button(self):
+        self.click_element(HomePageLocators.bottom_button_order)
 
     @allure.step('Ожидание элемента страницы')
     def get_element_text(self, locator):
