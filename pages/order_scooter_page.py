@@ -23,10 +23,15 @@ class OrderPage(BasePage):
     def enter_address(self, address):
         self.enter_text_to_field(OrderScooterLocators.address_field, address)
 
-    @allure.step('Выбираем станцию метро')
-    def select_metro_station(self, metro_locator):
+    @allure.step('Выбираем станцию метро Бульвар Рокоссовского')
+    def select_metro_station_rokosovskogo(self):
         self.click_element(OrderScooterLocators.metro_field)
-        self.click_element(metro_locator)
+        self.click_element(OrderScooterLocators.metro_station_rokosovskogo)
+
+    @allure.step('Выбираем станцию метро Черкизовская')
+    def select_metro_station_cherkizovskya(self):
+        self.click_element(OrderScooterLocators.metro_field)
+        self.click_element(OrderScooterLocators.metro_station_cherkizovskya)
 
     @allure.step('Вводим данные в поле Телефон')
     def enter_phone(self, phone):
@@ -41,14 +46,23 @@ class OrderPage(BasePage):
         self.click_element(OrderScooterLocators.date_field)
         self.click_element(date_locator)
 
-    @allure.step('Выбираем срок аренды')
-    def select_rental_period(self, rental_period_locator):
+    @allure.step('Выбираем срок аренды один день')
+    def select_rental_one_day(self):
         self.click_element(OrderScooterLocators.rental_period_field)
-        self.click_element(rental_period_locator)
+        self.click_element(OrderScooterLocators.rental_period_1)
 
-    @allure.step('Выбираем цвет самоката')
-    def choose_scooter_color(self, color_locator):
-        self.click_element(color_locator)
+    @allure.step('Выбираем срок аренды два дня')
+    def select_rental_two_day(self):
+        self.click_element(OrderScooterLocators.rental_period_field)
+        self.click_element(OrderScooterLocators.rental_period_2)
+
+    @allure.step('Выбираем цвет самоката черный')
+    def choose_scooter_color_black(self):
+        self.click_element(OrderScooterLocators.scooter_color_black)
+
+    @allure.step('Выбираем цвет самоката черный')
+    def choose_scooter_color_grey(self):
+        self.click_element(OrderScooterLocators.scooter_color_grey)
 
     @allure.step('Добавляем комментарий')
     def enter_comment(self, comment):
