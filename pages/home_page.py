@@ -28,3 +28,7 @@ class HomePage(BasePage):
     @allure.step('Клик на логотип Яндекс')
     def click_logo_yandex(self):
         self.click_element_script(HomePageLocators.logo_yandex)
+
+    @allure.step('Получение текущего URL')
+    def get_current_url(self):
+        return self.driver.current_url

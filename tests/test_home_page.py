@@ -26,11 +26,11 @@ class TestHomePage:
         home_page = HomePage(driver)
         home_page.click_top_button_order()
         home_page.click_logo_scooter()
-        assert driver.current_url == URL
+        assert home_page.get_current_url() == URL
 
     def test_logo_yandex(self, driver):
         home_page = HomePage(driver)
         home_page.click_logo_yandex()
         home_page.switch_to_last_tab()
         home_page.wait_for_url_contains(URL_DZEN)
-        assert URL_DZEN in driver.current_url
+        assert URL_DZEN in home_page.get_current_url()
