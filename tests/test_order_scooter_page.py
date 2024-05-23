@@ -3,7 +3,10 @@ from pages.order_scooter_page import OrderPage
 from data import (name_top_button, last_name_top_button, address_top_button, phone_top_button, comment_top_button,
                   name_bottom_button, last_name_bottom_button, address_bottom_button, phone_bottom_button, comment_bottom_button)
 from pages.home_page import HomePage
+import allure
+
 class TestOrderPage:
+    @allure.step('Заказ самоката. тест входа через верхнюю кнопку заказать')
     def test_order_scooter_top_button(self, driver):
         order_page = OrderPage(driver)
         home_page = HomePage(driver)
@@ -23,6 +26,7 @@ class TestOrderPage:
         order_page.confirm_order()
         assert order_page.is_order_processed()
 
+    @allure.step('Заказ самоката. тест входа через кнопку заказать в нижней части страницы')
     def test_order_scooter_bottom_button(self, driver):
         order_page = OrderPage(driver)
         home_page = HomePage(driver)

@@ -4,6 +4,7 @@ from data import (text_list_price, text_several_scooter, text_rental_time, text_
 import pytest
 from locators.home_page_locators import HomePageLocators
 from pages.home_page import HomePage
+import allure
 
 
 class TestHomePage:
@@ -18,16 +19,20 @@ class TestHomePage:
         (HomePageLocators.drop_down_list_cancel, HomePageLocators.drop_down_list_cancel_text, text_cancel),
         (HomePageLocators.drop_down_list_live_outside, HomePageLocators.drop_down_list_live_outside_text, text_live_outside),
     ])
+
+    @allure.step('Проверка соответствия текста выпадающего списка')
     def test_drop_down_list(self, driver, locator, text_locator, expected_text):
         home_page = HomePage(driver)
         home_page.click_drop_down(locator, text_locator, expected_text)
 
+    @allure.step('Проверка перехода на главную страницу при нажатии на логотип Самокат')
     def test_logo_scooter(self, driver):
         home_page = HomePage(driver)
         home_page.click_top_button_order()
         home_page.click_logo_scooter()
         assert home_page.get_current_url() == URL
 
+    @allure.step('Проверка нажатия на логотип Яндекса, в новом окне через редирект откроется главная страница Дзена.')
     def test_logo_yandex(self, driver):
         home_page = HomePage(driver)
         home_page.click_logo_yandex()
